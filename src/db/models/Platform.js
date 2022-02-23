@@ -5,7 +5,7 @@ const PlatformSchema = new Schema({
     type: String,
     required: true,
   },
-  series: [{ type: Schema.Types.ObjectId, ref: "Series" }],
+  series: [{ type: Schema.Types.ObjectId, ref: "Serie" }],
 });
 
 const Platform = model("Platform", PlatformSchema, "platforms");
