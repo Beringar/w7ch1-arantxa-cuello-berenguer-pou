@@ -7,4 +7,4 @@ const {
 const router = express.Router();
 
 router.get("/platforms", getAllPlatforms);
-router.post("/platforms", /*auth*/, createNewPlatform);
+router.post("/platforms", createNewPlatform);
