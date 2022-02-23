@@ -2,6 +2,7 @@ const chalk = require("chalk");
 const debug = require("debug")("series:server:middlewares:errors");
 
 const notFoundError = (req, res) => {
+  debug(chalk.red("Endpoint not found!"));
   res.status(404).json({ error: true, message: "Endpoint not found!" });
 };
 
