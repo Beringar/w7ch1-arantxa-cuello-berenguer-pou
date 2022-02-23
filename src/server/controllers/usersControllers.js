@@ -7,7 +7,8 @@ const userRegister = async (req, res, next) => {
   const { username, password, name } = req.body;
   try {
     const encryptedPassword = await encryptPassword(password);
-    const usernameExists = await User.find({ username });
+    const usernameExists = await User.findOne({ username });
+    debug(usernameExists);
     if (usernameExists) {
       const error = new Error(`Username ${username} already exists!`);
       error.code = 400;
