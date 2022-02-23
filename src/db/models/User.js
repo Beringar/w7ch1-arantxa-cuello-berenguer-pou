@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  admin: { type: Boolean },
+  isAdmin: { type: Boolean },
   series: [{ type: Schema.Types.ObjectId, ref: "Serie" }],
 });
 

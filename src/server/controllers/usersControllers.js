@@ -1,8 +1,32 @@
-const debug = require("debug")("robots:userControllers");
+const debug = require("debug")("series:userControllers");
 const chalk = require("chalk");
+const User = require("../../db/models/User");
+const encryptPassword = require("../utils/encryptPassword");
 
 const userRegister = async (req, res, next) => {
-  debug(chalk.redBright(req, res, next));
+  const { username, password, name } = req.body;
+  try {
+    const encryptedPassword = await encryptPassword(password);
+    const usernameExists = await User.find({ username });
+    if (usernameExists) {
+      const error = new Error(`Username ${username} already exists!`);
+      error.code = 400;
+      next(error);
+      return;
+    }
+    const newUser = await User.create({
+      username,
+      password: encryptedPassword,
+      name,
+      isAdmin: false,
+    });
+    debug(chalk.cyanBright(`User created with username: ${username}`));
+    res.status(201);
+    res.json(newUser);
+  } catch (error) {
+    error.code = 400;
+    next(error);
+  }
 };
 
 module.exports = {
