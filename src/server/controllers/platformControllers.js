@@ -15,4 +15,16 @@ const createNewPlatform = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllPlatforms, createNewPlatform };
+const updatePlatform = async (req, res) => {
+  const editedPlatform = await Platform.findByIdAndUpdate(
+    req.body.id,
+    req.body,
+    {
+      new: true,
+    }
+  );
+
+  res.status(200).json(editedPlatform);
+};
+
+module.exports = { getAllPlatforms, createNewPlatform, updatePlatform };
