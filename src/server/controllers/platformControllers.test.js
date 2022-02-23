@@ -1,6 +1,6 @@
 const Platform = require("../../db/models/Platform");
 
-const { getAllPlatforms } = require("./platformControllers");
+const { getAllPlatforms, updatePlatform } = require("./platformControllers");
 
 jest.mock("../../db/models/Platform");
 
@@ -45,3 +45,21 @@ describe("Given an getAllPlatforms controller", () => {
     });
   });
 }); */
+describe("Given an update platform controller", () => {
+  describe("When When it's called with req res and next and Platform.findOneandUpdate", () => {
+    test("Then should be called with a 200 status", async () => {
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      const req = { body: { platform: {} } };
+      const next = jest.fn();
+      const newPlatform = {};
+      const status = 200;
+      Platform.findByIdAndUpdate = jest.fn().mockResolvedValue(newPlatform);
+
+      await updatePlatform(req, res, next);
+
+      expect(next).not.toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(status);
+      expect(res.json).toHaveBeenCalledWith(newPlatform);
+    });
+  });
+});
