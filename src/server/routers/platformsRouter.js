@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.get("/", getAllPlatforms);
 router.post("/", createNewPlatform);
-router.post("/:idPlatform", updatePlatform);
+router.put("/:idPlatform", updatePlatform);
 
 module.exports = router;
