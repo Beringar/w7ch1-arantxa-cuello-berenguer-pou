@@ -1,4 +1,4 @@
-const debug = require("debug")("robots:server:startserver");
+const debug = require("debug")("series:server");
 const chalk = require("chalk");
 
 const startServer = (app, port) =>
