@@ -5,4 +5,14 @@ const getAllPlatforms = async (req, res) => {
   res.json({ platforms });
 };
 
-module.exports = getAllPlatforms;
+const createNewPlatform = async (req, res, next) => {
+  try {
+    const platform = req.body;
+    const newPlatform = await Platform.create(platform);
+    res.status(201).json(newPlatform);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getAllPlatforms, createNewPlatform };
