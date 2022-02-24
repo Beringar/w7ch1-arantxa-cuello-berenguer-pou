@@ -1,4 +1,5 @@
 const express = require("express");
+const auth = require("../middlewares/auth");
 const {
   createNewPlatform,
   getAllPlatforms,
@@ -7,8 +8,8 @@ const {
 
 const router = express.Router();
 
-router.get("/", getAllPlatforms);
-router.post("/", createNewPlatform);
-router.put("/:idPlatform", updatePlatform);
+router.get("/", auth, getAllPlatforms);
+router.post("/", auth, createNewPlatform);
+router.put("/:idPlatform", auth, updatePlatform);
 
 module.exports = router;

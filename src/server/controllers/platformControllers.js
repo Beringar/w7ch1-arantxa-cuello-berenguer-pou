@@ -1,3 +1,4 @@
+const debug = require("debug")("series:platformControllers");
 const Platform = require("../../db/models/Platform");
 
 const getAllPlatforms = async (req, res) => {
@@ -15,16 +16,30 @@ const createNewPlatform = async (req, res, next) => {
   }
 };
 
-const updatePlatform = async (req, res) => {
-  const editedPlatform = await Platform.findByIdAndUpdate(
-    req.body.id,
-    req.body,
-    {
-      new: true,
-    }
-  );
+const updatePlatform = async (req, res, next) => {
+  debug(req.params);
+  const { idPlatform } = req.params;
+  const platform = req.body;
+  try {
+    const updatedPlatform = await Platform.findByIdAndUpdate(
+      idPlatform,
+      platform,
+      {
+        new: true,
+      }
+    );
 
-  res.status(200).json(editedPlatform);
+    if (!updatedPlatform) {
+      const error = new Error("Update error");
+      error.code = 400;
+      next(error);
+    } else {
+      res.json(updatedPlatform);
+    }
+  } catch (error) {
+    error.code = 400;
+    next(error);
+  }
 };
 
 module.exports = { getAllPlatforms, createNewPlatform, updatePlatform };
