@@ -1,0 +1,20 @@
+name: Testing on push
+
+on: push
+env:
+  REACT_APP_HEROKKU_API_URL: ${{secrets.REACT_APP_HEROKKU_API_URL}}
+
+jobs:
+  test:
+    name: Test passes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Install modules
+        run: npm ci
+
+      - name: Testing
+        run: npm test
