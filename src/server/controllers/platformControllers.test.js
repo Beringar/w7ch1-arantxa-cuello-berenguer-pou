@@ -1,6 +1,10 @@
 const Platform = require("../../db/models/Platform");
 
-const { getAllPlatforms, updatePlatform } = require("./platformControllers");
+const {
+  getAllPlatforms,
+  updatePlatform,
+  createNewPlatform,
+} = require("./platformControllers");
 
 jest.mock("../../db/models/Platform");
 
@@ -24,7 +28,7 @@ describe("Given an getAllPlatforms controller", () => {
   });
 });
 
-/* describe("Given a createPlaform controller", () => {
+describe("Given a createPlaform controller", () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
@@ -44,7 +48,7 @@ describe("Given an getAllPlatforms controller", () => {
       expect(res.json).toHaveBeenCalledWith(createdPlatform);
     });
   });
-}); */
+});
 describe("Given an update platform controller", () => {
   describe("When When it's called with req res and next and Platform.findOneandUpdate", () => {
     test("Then should be called with a 200 status", async () => {
