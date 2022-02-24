@@ -32,6 +32,7 @@ const updatePlatform = async (req, res, next) => {
       error.code = 400;
       next(error);
     } else {
+      res.status(200);
       res.json(updatedPlatform);
     }
   } catch (error) {
