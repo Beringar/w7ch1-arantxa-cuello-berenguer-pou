@@ -1,4 +1,3 @@
-const debug = require("debug")("series:platformControllers");
 const Platform = require("../../db/models/Platform");
 
 const getAllPlatforms = async (req, res) => {
@@ -17,7 +16,6 @@ const createNewPlatform = async (req, res, next) => {
 };
 
 const updatePlatform = async (req, res, next) => {
-  debug(req.params);
   const { idPlatform } = req.params;
   const platform = req.body;
   try {

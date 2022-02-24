@@ -47,7 +47,12 @@ const userLogin = async (req, res, next) => {
         error.code = 401;
         next(error);
       } else {
-        const userData = { name: user.name, id: user.id };
+        const userData = {
+          username,
+          name: user.name,
+          id: user.id,
+          isAdmin: user.isAdmin,
+        };
         const token = jwt.sign(userData, process.env.JWT_SECRET);
         debug(
           chalk.cyanBright(
