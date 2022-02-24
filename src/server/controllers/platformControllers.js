@@ -9,7 +9,7 @@ const createNewPlatform = async (req, res, next) => {
   try {
     const platform = req.body;
     const newPlatform = await Platform.create(platform);
-    res.status(201);
+    res.status(200);
     res.json(newPlatform);
   } catch (error) {
     next(error);
