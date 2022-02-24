@@ -5,8 +5,9 @@ const app = require("..");
 const connectToMongoDb = require("../../db/index");
 const Platform = require("../../db/models/Platform");
 
+let mongoServer;
 beforeAll(async () => {
-  const mongoServer = await MongoMemoryServer.create();
+  mongoServer = await MongoMemoryServer.create();
   const connectionString = mongoServer.getUri();
   await connectToMongoDb(connectionString);
 });
@@ -26,10 +27,9 @@ afterEach(async () => {
   await Platform.deleteMany({});
 });
 
-afterAll((done) => {
-  mongoose.connection.db.dropDatabase(() => {
-    mongoose.connection.close(() => done());
-  });
+afterAll(async () => {
+  await mongoose.connection.close();
+  await mongoServer.stop();
 });
 
 describe("Given a /platforms endpoint", () => {
