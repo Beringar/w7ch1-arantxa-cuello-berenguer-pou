@@ -34,7 +34,7 @@ afterAll(async () => {
 
 describe("Given a /platforms endpoint", () => {
   describe("When it receives a GET request", () => {
-    test("Then it should response with a 200 status code", async () => {
+    test("Then it should response with a 200 status code and the successful", async () => {
       const token =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikx1aXM4IiwibmFtZSI6Ikx1aXMgUCIsImlkIjoiNjIxNmE1ZmQ4MzYyMDM1YTBhMzhlMTE0IiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQ1NzIyOTAzfQ.YuxggXPlm0H60vHXduQVPVnmauSbGevZNYUtqgIiauA";
       await request(app)
@@ -85,6 +85,16 @@ describe("Given a platforms/:idPlatform endpoint", () => {
         .put("/platforms/:idPlatform")
         .set("Authorization", `${"Bearer"} ${token}`);
       expect(200);
+    });
+  });
+  describe("When it receives a POST request unauthorised", () => {
+    test("Then it should response a 401", async () => {
+      const token =
+        "JhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikx1aXM4IiwibmFtZSI6Ikx1aXMgUCIsImlkIjoiNjIxNmE1ZmQ4MzYyMDM1YTBhMzhlMTE0IiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQ1NzIyOTAzfQ.YuxggXPlm0H60vHXduQVPVnmauSbGevZNYUtqgIiauA";
+      await request(app)
+        .put("/platforms/:idPlatform")
+        .set("Authorization", `${"Bearer"} ${token}`);
+      expect(401);
     });
   });
 });
