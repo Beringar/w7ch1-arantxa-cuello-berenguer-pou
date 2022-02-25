@@ -71,7 +71,7 @@ describe("Given a userLogin controller", () => {
 
       await userLogin(req, res, () => null);
 
-      expect(res.json).toHaveBeenCalled;
+      expect(res.json).toHaveBeenCalled();
     });
   });
 });
